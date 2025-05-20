@@ -126,11 +126,6 @@ public class Form extends JFrame{
     private JPanel linha10_panel_limpar;
     private JButton linha10_button_limpar;
 
-    
-
-    
-
-
 
 
 
@@ -144,8 +139,16 @@ public class Form extends JFrame{
         panel = new JPanel();
         panel.setLayout(null);
         // line 1
+            //linha1 prepare
             linha1 = new JPanel();
             linha1.setBounds(0, 0, 1000, 32);
+            //linha1 components
+            linha1_panel_tipo = new JPanel();
+            linha1_label_tipo = new JLabel("pessoa");
+            linha1_panel_tipo.add(linha1_label_tipo);
+
+            //linha1 add
+            linha1.add(linha1_panel_tipo);
             panel.add(linha1);
         // line 2
 

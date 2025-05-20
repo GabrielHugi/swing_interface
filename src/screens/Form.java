@@ -128,9 +128,6 @@ public class Form extends JFrame{
     private JButton linha10_button_limpar;
 
 
-    private FlowLayout flex = new FlowLayout();
-
-
     private JPanel panel;
     public Form () {
         super("title");
@@ -144,13 +141,14 @@ public class Form extends JFrame{
             //linha1 prepare
             linha1 = new JPanel();
             linha1.setBounds(0, 0, 1000, 32);
-            linha1.setLayout(flex);
+            linha1.setLayout(new BoxLayout(linha1, BoxLayout.X_AXIS));
             //linha1 components
             linha1_panel_tipo = new JPanel();
             linha1_label_tipo = new JLabel("pessoa");
+            linha1_label_tipo.setAlignmentX(Component.LEFT_ALIGNMENT);
             linha1_panel_tipo.add(linha1_label_tipo);
 
-            //linha1 add            
+            //linha1 add
             linha1.add(linha1_panel_tipo);
             panel.add(linha1);
         // line 2

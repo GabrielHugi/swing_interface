@@ -2,6 +2,7 @@ package screens;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.tree.*;
 
 public class Form extends JFrame{
     private JPanel linha1, linha2, linha3, linha4, linha5, linha6, linha7, linha8, linha9, linha10;
@@ -11,10 +12,13 @@ public class Form extends JFrame{
     private JLabel linha1_label_tipo;
 
     private JPanel linha1_panel_pessoa;
-    private JOptionPane linha1_option_pessoa;
+    private JList linha1_option_pessoa;
 
     private JPanel linha1_panel_cpf;
-    private JTextField linha1_text_cpf;
+    private JLabel linha1_label_cpf;
+
+    private JPanel linha1_panel_cpfInput;
+    private JTextField linha1_text_cpfInput;
 
     private JPanel linha1_panel_fornecedor;
     private JLabel linha1_label_fornecedor;
@@ -135,21 +139,60 @@ public class Form extends JFrame{
     }
 
     private void run() {
+        //UIManager.put("Tree.closedIcon", null);
+        //UIManager.put("Tree.openIcon", null);
+        //UIManager.put("Tree.leafIcon", null);
         panel = new JPanel();
         panel.setLayout(null);
         // line 1
             //linha1 prepare
             linha1 = new JPanel();
-            linha1.setBounds(0, 0, 1000, 32);
-            linha1.setLayout(new BoxLayout(linha1, BoxLayout.X_AXIS));
+            linha1.setBounds(0, 0, 1000, 480);
+            linha1.setLayout(new FlowLayout(FlowLayout.LEFT, 40, 0));
             //linha1 components
             linha1_panel_tipo = new JPanel();
+            linha1_panel_tipo.setSize(60, 50);
             linha1_label_tipo = new JLabel("pessoa");
-            linha1_label_tipo.setAlignmentX(Component.LEFT_ALIGNMENT);
             linha1_panel_tipo.add(linha1_label_tipo);
+
+            linha1_panel_pessoa = new JPanel();
+            DefaultMutableTreeNode root = new DefaultMutableTreeNode("root");
+            DefaultMutableTreeNode sigma = new DefaultMutableTreeNode("sigma");
+            DefaultMutableTreeNode sigmea = new DefaultMutableTreeNode("sigmea");
+            root.add(sigma);
+            sigma.add(sigmea);
+            JTree tree = new JTree(root);
+            tree.setRootVisible(false);
+            tree.setShowsRootHandles(true);
+            tree.setToggleClickCount(1);
+            tree.setRowHeight(24);
+            tree.putClientProperty("JTree.lineStyle", "none");
+            tree.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+            linha1_panel_pessoa.add(tree);
+
+            linha1_panel_cpf = new JPanel();
+            linha1_label_cpf = new JLabel();
+            linha1_panel_cpf.add(linha1_label_cpf);
+
+            linha1_panel_cpfInput = new JPanel();
+            linha1_text_cpfInput = new JTextField();
+            linha1_panel_cpfInput.add(linha1_text_cpfInput);
+
+            linha1_panel_fornecedor = new JPanel();
+            linha1_label_fornecedor = new JLabel();
+            linha1_panel_fornecedor.add(linha1_label_fornecedor);
+
+            linha1_panel_fornecedorCheck = new JPanel();
+            linha1_check_fornecedorCheck = new JCheckBox();
+            linha1_panel_fornecedorCheck.add(linha1_check_fornecedorCheck);
 
             //linha1 add
             linha1.add(linha1_panel_tipo);
+            linha1.add(linha1_panel_pessoa);
+            linha1.add(linha1_panel_cpf);
+            linha1.add(linha1_panel_cpfInput);
+            linha1.add(linha1_panel_fornecedor);
+            linha1.add(linha1_panel_fornecedorCheck);
             panel.add(linha1);
         // line 2
 

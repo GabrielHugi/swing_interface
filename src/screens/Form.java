@@ -2,208 +2,247 @@ package screens;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.tree.*;
 
-public class Form extends JFrame{
-    private JPanel linha1, linha2, linha3, linha4, linha5, linha6, linha7, linha8, linha9, linha10;
-
-    //linha 1
-    private JPanel linha1_panel_tipo;
-    private JLabel linha1_label_tipo;
-
-    private JPanel linha1_panel_pessoa;
-    private JList linha1_option_pessoa;
-
-    private JPanel linha1_panel_cpf;
-    private JLabel linha1_label_cpf;
-
-    private JPanel linha1_panel_cpfInput;
-    private JTextField linha1_text_cpfInput;
-
-    private JPanel linha1_panel_fornecedor;
-    private JLabel linha1_label_fornecedor;
-
-    private JPanel linha1_panel_fornecedorCheck;
-    private JCheckBox linha1_check_fornecedorCheck;
-
-    //linha 2
-    private JPanel linha2_panel_nome;
-    private JLabel linha2_label_nome;
-
-    private JPanel linha2_panel_nomeInput;
-    private JTextField linha2_text_nomeInput;
-
-    //linha 3
-    private JPanel linha3_panel_rg;
-    private JLabel linha3_label_rg;
-
-    private JPanel linha3_panel_rgInput;
-    private JTextField linha3_text_rgInput;
-    
-    private JPanel linha3_panel_expeditor;
-    private JLabel linha3_label_expeditor;
-
-    private JPanel linha3_panel_expeditorInput;
-    private JTextField linha3_text_expeditorInput;
-    
-    //linha 4
-    private JPanel linha4_panel_email;
-    private JLabel linha4_label_email;
-
-    private JPanel linha4_panel_emailInput;
-    private JTextField linha4_text_emailInput;
-    
-    private JPanel linha4_panel_cep;
-    private JLabel linha4_label_cep;
-
-    private JPanel linha4_panel_cepInput;
-    private JTextField linha4_text_cepInput;
-
-    //linha 5
-    private JPanel linha5_panel_pais;
-    private JLabel linha5_label_pais;
-
-    private JPanel linha5_panel_paisInput;
-    private JTextField linha5_text_paisInput;
-
-    private JPanel linha5_panel_uf;
-    private JLabel linha5_label_uf;
-
-    private JPanel linha5_panel_ufInput; // uf seria estado de acordo com sei la google
-    private JTextField linha5_text_ufInput; //sei lá para q essa text area é
-    private JTextField linha5_text2_ufInput;
-
-    //linha 6
-    private JPanel linha6_panel_municipio;
-    private JLabel linha6_label_municipio;
-
-    private JPanel linha6_panel_municipioInput;
-    private JTextField linha6_text_municipioInput;
-
-    //linha 7
-    private JPanel linha7_panel_logradouro;
-    private JLabel linha7_label_logradouro;
-
-    private JPanel linha7_panel_logradouroInput;
-    private JTextField linha7_text_logradouroInput;
-
-    //linha 8
-    private JPanel linha8_panel_numero;
-    private JLabel linha8_label_numero;
-
-    private JPanel linha8_panel_numeroInput;
-    private JTextField linha8_text_numeroInput;
-
-    private JPanel linha8_panel_complemento;
-    private JLabel linha8_label_complemento;
-
-    private JPanel linha8_panel_complementoInput;
-    private JTextField linha8_text_complementoInput;
-
-    //linha 9
-    private JPanel linha9_panel_bairro;
-    private JLabel linha9_label_bairro;
-
-    private JPanel linha9_panel_bairroInput;
-    private JTextField linha9_text_bairroInput;
-
-    private JPanel linha9_panel_telefone;
-    private JLabel linha9_label_telefone;
-
-    private JPanel linha9_panel_telefoneInput;
-    private JTextField linha9_text_telefoneInput;
-
-    private JPanel linha9_panel_situacao;
-    private JLabel linha9_label_situacao;
-
-    private JPanel linha9_panel_radios;
-    private ButtonGroup radioGroup;  // radioGroup.add(linha9_radio_ativo) etc
-    private JRadioButton linha9_radio_ativo;
-    private JRadioButton linha9_radio_inativo;
-
-    //linha10
-    private JPanel linha10_panel_confirmar;
-    private JButton linha10_button_confirmar;
-
-    private JPanel linha10_panel_excluir;
-    private JButton linha10_button_excluir;
-
-    private JPanel linha10_panel_limpar;
-    private JButton linha10_button_limpar;
-
+public class Form extends JFrame {
+    // java swing documentation so I don't forget
+    // https://docs.oracle.com/javase/8/docs/api/javax/swing/package-summary.html
+    // https://www.geeksforgeeks.org/introduction-to-java-swing/
+    // https://javamex.com/tutorials/swing/components.shtml 
+    // this one ^ is the best one because the java documentation is ass
 
     private JPanel panel;
-    public Form () {
-        super("title");
-        run();
+    private JPanel titulo, linha1, linha2, linha3, linha4, linha5, linha6, linha7, linha8, linha9, buttons;
+
+    public Form() {
+        super("Cadastro de Pessoa");
+        start();
+    }
+    
+    // keeps track of input fields
+    java.util.List<JTextField> textFields = new java.util.ArrayList<>();
+    java.util.List<ButtonGroup> radioButtons = new java.util.ArrayList<>();
+    java.util.List<JCheckBox> checkBoxes = new java.util.ArrayList<>();
+
+    private void start() {
+
+        panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(25, 20,25, 20));
+
+ 
+        titulo = createRow();
+        titulo.add(Box.createHorizontalStrut(25));
+        titulo.setMaximumSize(new Dimension(2500, 50));
+        JLabel titulo_label = new JLabel("Cadastro de pessoas", SwingConstants.LEFT);
+        titulo_label.setFont(titulo_label.getFont().deriveFont(Font.PLAIN, 60f));
+        titulo_label.setMaximumSize(new Dimension(800, 50));
+        titulo_label.setBackground(null);
+        titulo_label.setBorder(null);
+        titulo_label.setAlignmentY(Component.TOP_ALIGNMENT);
+        titulo_label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        titulo_label.setForeground(new Color(243, 123, 47));
+        titulo.add(titulo_label);
+        panel.add(titulo);
+        panel.add(Box.createVerticalStrut(60));
+
+
+        linha1 = createRow();
+        linha1.add(createLabel("Tipo"));
+        linha1.add(Box.createHorizontalStrut(5));
+        JComboBox<String> pessoa = new JComboBox<>(new String[]{"Física", "Jurídica"});
+        pessoa.setMaximumSize(new Dimension(160, 32));
+        pessoa.setAlignmentY(Component.TOP_ALIGNMENT);
+        linha1.add(pessoa);
+        linha1.add(Box.createHorizontalStrut(5));
+        linha1.add(createLabel("CPF / CNPJ..."));
+        linha1.add(Box.createHorizontalStrut(5));
+        linha1.add(createTextField(20));
+        linha1.add(Box.createHorizontalStrut(5));
+        linha1.add(createLabel("Fornecedor"));
+        linha1.add(Box.createHorizontalStrut(5));
+        linha1.add(createCheckBox());
+        panel.add(linha1);
+
+ 
+        linha2 = createRow();
+        linha2.add(createLabel("Nome"));
+        linha2.add(Box.createHorizontalStrut(5));
+        linha2.add(createTextField(78));
+        panel.add(linha2);
+
+
+        linha3 = createRow();
+        linha3.add(createLabel("RG / Inscrição Estadual"));
+        linha3.add(Box.createHorizontalStrut(5));
+        linha3.add(createTextField(15));
+        linha3.add(Box.createHorizontalStrut(5));
+        linha3.add(createLabel("Orgão Expedidor"));
+        linha3.add(Box.createHorizontalStrut(5));
+        linha3.add(createTextField(15));
+        panel.add(linha3);
+
+
+        linha4 = createRow();
+        linha4.add(createLabel("Email"));
+        linha4.add(Box.createHorizontalStrut(5));
+        linha4.add(createTextField(31));
+        linha4.add(Box.createHorizontalStrut(5));
+        linha4.add(createLabel("CEP"));
+        linha4.add(Box.createHorizontalStrut(5));
+        linha4.add(createTextField(31));
+        panel.add(linha4);
+
+
+        linha5 = createRow();
+        linha5.add(createLabel("País"));
+        linha5.add(Box.createHorizontalStrut(5));
+        JTextField pais = createTextField(31);
+        pais.setBackground(new Color(230, 230, 230));
+        pais.setText("BRASIL");
+        linha5.add(pais);
+        linha5.add(Box.createHorizontalStrut(5));
+        linha5.add(createLabel("UF..."));
+        linha5.add(Box.createHorizontalStrut(5));
+        linha5.add(createTextField(5));
+        linha5.add(Box.createHorizontalStrut(5));
+        JTextField UF = createTextField(25);
+        UF.setBackground(new Color(230, 230, 230));
+        linha5.add(UF);
+        panel.add(linha5);
+
+
+        linha6 = createRow();
+        linha6.add(createLabel("Município..."));
+        linha6.add(Box.createHorizontalStrut(5));
+        JTextField municipio = createTextField(78);
+        municipio.setBackground(new Color(230, 230, 230));
+        linha6.add(municipio);
+        panel.add(linha6);
+
+
+        linha7 = createRow();
+        linha7.add(createLabel("Logradouro"));
+        linha7.add(Box.createHorizontalStrut(5));
+        linha7.add(createTextField(78));
+        panel.add(linha7);
+
+
+        linha8 = createRow();
+        linha8.add(createLabel("Número"));
+        linha8.add(Box.createHorizontalStrut(5));
+        linha8.add(createTextField(21));
+        linha8.add(Box.createHorizontalStrut(5));
+        linha8.add(createLabel("Complemento"));
+        linha8.add(Box.createHorizontalStrut(5));
+        linha8.add(createTextField(41));
+        panel.add(linha8);
+
+
+        linha9 = createRow();
+        linha9.add(createLabel("Bairro"));
+        linha9.add(Box.createHorizontalStrut(5));
+        linha9.add(createTextField(15));
+        linha9.add(Box.createHorizontalStrut(5));
+        linha9.add(createLabel("Telefone"));
+        linha9.add(Box.createHorizontalStrut(5));
+        linha9.add(createTextField(15));
+        linha9.add(Box.createHorizontalStrut(5));
+        linha9.add(createLabel("Situação"));
+        linha9.add(Box.createHorizontalStrut(5));
+        // radio buttons
+        JRadioButton linha9_ativo = new JRadioButton("Ativo");
+        linha9_ativo.setAlignmentY(Component.TOP_ALIGNMENT);
+        JRadioButton linha9_inativo = new JRadioButton("Inativo");
+        linha9_inativo.setAlignmentY(Component.TOP_ALIGNMENT);
+        ButtonGroup linha9_bg = new ButtonGroup();
+        linha9_bg.add(linha9_ativo); 
+        linha9_bg.add(linha9_inativo);  
+        radioButtons.add(linha9_bg);
+        linha9.add(linha9_ativo); 
+        linha9.add(linha9_inativo);
+        panel.add(linha9);
+        panel.add(Box.createVerticalStrut(30));
+
+
+        buttons = createRow();
+        buttons.setMaximumSize(new Dimension(2500, 60));
+        JButton confirmarBtn = createButton("Confirmar", new Color(230,100,0));
+        confirmarBtn.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, "Adicionado");
+        });
+        buttons.add(confirmarBtn);
+        buttons.add(Box.createHorizontalStrut(5));
+        JButton excluirBtn = createButton("Excluir", new Color(230,100,0));
+        excluirBtn.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, "Excluido");
+        });
+        buttons.add(excluirBtn);
+        buttons.add(Box.createHorizontalStrut(5));
+        JButton limparBtn = createButton("Limpar", Color.LIGHT_GRAY);
+        limparBtn.addActionListener(e -> {
+            for (JTextField textField : textFields) textField.setText("");
+            //for (JRadioButton rb : radioButtons) rb.setSelected(false);
+            // this radio thing isn't working for some reason
+            for (ButtonGroup buttonGroup : radioButtons) buttonGroup.clearSelection();
+            for (JCheckBox checkBox : checkBoxes) checkBox.setSelected(false);
+        });
+        buttons.add(limparBtn);
+        panel.add(buttons);
+
+        setContentPane(panel);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(1500,900);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
-    private void run() {
-        //UIManager.put("Tree.closedIcon", null);
-        //UIManager.put("Tree.openIcon", null);
-        //UIManager.put("Tree.leafIcon", null);
-        panel = new JPanel();
-        panel.setLayout(null);
-        // line 1
-            //linha1 prepare
-            linha1 = new JPanel();
-            linha1.setBounds(0, 0, 1000, 480);
-            linha1.setLayout(new FlowLayout(FlowLayout.LEFT, 40, 0));
-            //linha1 components
-            linha1_panel_tipo = new JPanel();
-            linha1_panel_tipo.setSize(60, 50);
-            linha1_label_tipo = new JLabel("pessoa");
-            linha1_panel_tipo.add(linha1_label_tipo);
+    // create functions
+    private JPanel createRow() {
+        JPanel row = new JPanel();
+        row.setLayout(new BoxLayout(row, BoxLayout.X_AXIS));
+        row.setAlignmentX(Component.LEFT_ALIGNMENT);
+        row.setMaximumSize(new Dimension(2500, 40));
+        return row;
+    }
 
-            linha1_panel_pessoa = new JPanel();
-            DefaultMutableTreeNode root = new DefaultMutableTreeNode("root");
-            DefaultMutableTreeNode sigma = new DefaultMutableTreeNode("sigma");
-            DefaultMutableTreeNode sigmea = new DefaultMutableTreeNode("sigmea");
-            root.add(sigma);
-            sigma.add(sigmea);
-            JTree tree = new JTree(root);
-            tree.setRootVisible(false);
-            tree.setShowsRootHandles(true);
-            tree.setToggleClickCount(1);
-            tree.setRowHeight(24);
-            tree.putClientProperty("JTree.lineStyle", "none");
-            tree.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-            linha1_panel_pessoa.add(tree);
+    private JLabel createLabel(String text) {
+        JLabel label = new JLabel(text, SwingConstants.CENTER);
+        label.setFont(label.getFont().deriveFont(Font.BOLD,16f));
+        label.setBackground(Color.WHITE);
+        label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        label.setPreferredSize(new Dimension(200,32));
+        label.setMaximumSize(new Dimension(200,32));
+        label.setAlignmentY(Component.TOP_ALIGNMENT);
+        return label;
+    }
 
-            linha1_panel_cpf = new JPanel();
-            linha1_label_cpf = new JLabel();
-            linha1_panel_cpf.add(linha1_label_cpf);
+    private JTextField createTextField(int columns) {
+        JTextField textField = new JTextField(columns);
+        textField.setFont(textField.getFont().deriveFont(16f));
+        textField.setBackground(Color.WHITE);
+        textField.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+        textField.setMaximumSize(new Dimension(2000,32));
+        textField.setAlignmentY(Component.TOP_ALIGNMENT);
+        textFields.add(textField);
+        return textField;
+    }
 
-            linha1_panel_cpfInput = new JPanel();
-            linha1_text_cpfInput = new JTextField();
-            linha1_panel_cpfInput.add(linha1_text_cpfInput);
+    private JCheckBox createCheckBox() {
+        JCheckBox checkBox = new JCheckBox();
+        checkBox.setPreferredSize(new Dimension(40, 40));
+        checkBox.setBorder(BorderFactory.createEmptyBorder(10,5,10,5));
+        checkBox.setAlignmentY(Component.TOP_ALIGNMENT);
+        checkBoxes.add(checkBox);
+        return checkBox;
+    }
 
-            linha1_panel_fornecedor = new JPanel();
-            linha1_label_fornecedor = new JLabel();
-            linha1_panel_fornecedor.add(linha1_label_fornecedor);
-
-            linha1_panel_fornecedorCheck = new JPanel();
-            linha1_check_fornecedorCheck = new JCheckBox();
-            linha1_panel_fornecedorCheck.add(linha1_check_fornecedorCheck);
-
-            //linha1 add
-            linha1.add(linha1_panel_tipo);
-            linha1.add(linha1_panel_pessoa);
-            linha1.add(linha1_panel_cpf);
-            linha1.add(linha1_panel_cpfInput);
-            linha1.add(linha1_panel_fornecedor);
-            linha1.add(linha1_panel_fornecedorCheck);
-            panel.add(linha1);
-        // line 2
-
-
-
-
-        //ending regards about panel
-        this.setContentPane (panel);
-        this.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-        this.setSize(1000, 600);
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
+    private JButton createButton(String text, Color backgroundColor) {
+        JButton button = new JButton(text);
+        button.setFont(button.getFont().deriveFont(Font.BOLD,16f));
+        button.setBackground(backgroundColor);
+        button.setForeground(Color.WHITE);
+        button.setBorder(BorderFactory.createEmptyBorder(8,60,8,60));
+        button.setAlignmentY(Component.TOP_ALIGNMENT);
+        return button;
     }
 }

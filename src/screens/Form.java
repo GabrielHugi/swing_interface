@@ -151,8 +151,10 @@ public class Form extends JFrame {
         linha9.add(Box.createHorizontalStrut(5));
         // radio buttons
         JRadioButton linha9_ativo = new JRadioButton("Ativo");
+        linha9_ativo.setActionCommand("Ativo");
         linha9_ativo.setAlignmentY(Component.TOP_ALIGNMENT);
         JRadioButton linha9_inativo = new JRadioButton("Inativo");
+        linha9_inativo.setActionCommand("Inativo");
         linha9_inativo.setAlignmentY(Component.TOP_ALIGNMENT);
         ButtonGroup linha9_bg = new ButtonGroup();
         linha9_bg.add(linha9_ativo); 
@@ -167,8 +169,42 @@ public class Form extends JFrame {
         buttons = createRow();
         buttons.setMaximumSize(new Dimension(2500, 60));
         JButton confirmarBtn = createButton("Confirmar", new Color(230,100,0));
+        /*
         confirmarBtn.addActionListener(e -> {
             JOptionPane.showMessageDialog(this, "Adicionado");
+        });
+        */
+        confirmarBtn.addActionListener(e -> {
+            // construindo a string para listar todos os bagulhos
+            StringBuilder mensagem = new StringBuilder();
+            mensagem.append("Tipo: ").append(pessoa.getSelectedItem()).append("\n\n");
+            String[] labels = {
+                "CPF/CNPJ", "Nome", "RG / Inscrição Estadual", "Orgão Expedidor",
+                "Email", "CEP", "País", "UF (sigla)", "UF (nome)",
+                "Município", "Logradouro", "Número", "Complemento",
+                "Bairro", "Telefone"
+            };
+            // adiciona cada valor em ordem
+            for (int i = 0; i < textFields.size(); i++) {
+                mensagem.append(labels[i])
+                .append(": ")
+                .append(textFields.get(i).getText())
+                .append("\n");
+            }
+            mensagem.append("\n");
+            boolean isFornecedor = checkBoxes.get(0).isSelected();
+            mensagem.append("Fornecedor: ").append(isFornecedor ? "Sim" : "Não").append("\n\n");
+            ButtonGroup situacaoGroup = radioButtons.get(0);
+            ButtonModel sel = situacaoGroup.getSelection();
+            String sit = (sel != null ? sel.getActionCommand() : "Não definido");
+            mensagem.append("Situação: ").append(sit).append("\n");
+            //mensagem
+            JOptionPane.showMessageDialog(
+                this,
+                mensagem.toString(),
+                "Dados Informados",
+                JOptionPane.INFORMATION_MESSAGE
+            );
         });
         buttons.add(confirmarBtn);
         buttons.add(Box.createHorizontalStrut(5));

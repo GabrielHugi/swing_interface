@@ -10,6 +10,16 @@ public class Form extends JFrame {
     // https://javamex.com/tutorials/swing/components.shtml 
     // this one ^ is the best one because the java documentation is ass
 
+
+    /*
+     * 
+     *  LEMBRAR DE FAZER BOTÃO CONFIRMAR PEGAR OS DADOS E MOSTRAR ELES NA MENSAGEM
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
     private JPanel panel;
     private JPanel titulo, linha1, linha2, linha3, linha4, linha5, linha6, linha7, linha8, linha9, buttons;
 
